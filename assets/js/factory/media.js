@@ -1,17 +1,19 @@
+
+
+
 export function createMedia(name,fileNameImage,fileNameVideo,like,id)
 {
     function getCardDOM(){
-        console.log("")
+
         const article = document.createElement( 'article' )
         article.classList.add('media__card')
-        let img
+        let img = null
         if (!fileNameImage)
         {
             img = document.createElement( 'video' )
             img.setAttribute("src", "../assets/images/" + id + "/" + fileNameVideo)
             img.setAttribute("alt", name)
             img.setAttribute("autoplay", true)
-            //img.setAttribute("poster", name)
             img.classList.add('media__img')
         }
         else {

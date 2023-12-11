@@ -1,5 +1,6 @@
 import * as mediaClass from '../factory/media'
 
+
 export function photographerTemplate(data) {
     //console.log("Template : "+data)
     const { name, portrait, city, country, id , tagline, price } = data
@@ -30,7 +31,7 @@ export function photographerTemplate(data) {
         p3.textContent = price + "€/jour"
         p3.classList.add('color__secondary-empty')
         const a = document.createElement( 'a' )
-        a.setAttribute("href", "/pages/photographer.html?id="+id)
+        a.setAttribute("href", "photographer.html?id="+id)
 
         article.appendChild(img)
         article.appendChild(h2)
@@ -105,6 +106,11 @@ export function photographerPageTemplate(photographer,media) {
     overlay.classList.add('photographer__overlay')
     overlay.textContent = photographer.price + "€ / jour"
     document.body.appendChild(overlay)
+
+    //Add photographer name on form
+    const photographerName = document.querySelector(".getName")
+    photographerName.textContent = photographer.name
+
 }
 
 

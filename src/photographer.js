@@ -4,6 +4,7 @@ import * as modal from '../assets/js/utility/modal'
 import * as photographers from '../assets/js/pages/photographers'
 import {sass} from '../assets/sass/style.sass'
 
+
 /**VARIABLES */
 const modalForm = document.getElementById('contact_modal')
 const btnContact = document.querySelector(".contact_button")
@@ -19,8 +20,13 @@ btnContact.addEventListener("click", function(){
 btnCloseModal.addEventListener("click", function(){
     modal.close(modalForm)
 })
+/*
+form.addEventListener("submit", (event) => {
+    event.preventDefault()
+    //console.log()
+})*/
 
-
+/** Generate page */
 photographers.photographerForm(id)
 
 
