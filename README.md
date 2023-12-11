@@ -10,5 +10,5 @@ npm install sass-loader node-sass css-loader style-loader mini-css-extract-plugi
 
 ou
 
-npm i -D sass-loader node-sass css-loader style-loader mini-css-extract-plugin postcss-loader autoprefixer 
+npm i -D sass-loader node-sass css-loader style-loader mini-css-extract-plugin postcss-loader autoprefixer webpack-dev-server
 

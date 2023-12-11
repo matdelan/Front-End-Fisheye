@@ -1,4 +1,4 @@
-import {photographerTemplate}  from '../templates/photographer'
+import {photographerTemplate,photographerPageTemplate}  from '../templates/photographer'
 
 export async function getPhotographers() {
         // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
@@ -24,8 +24,17 @@ export async function getPhotographers() {
             },
         ]
         // et bien retourner le tableau photographers seulement une fois récupéré
-        return ({
-            photographers: [...photographers, ...photographers, ...photographers]})
+        //console.log ({ photographers: [...photographers, ...photographers, ...photographers]})
+    return await fetch('assets/data/photographers.json').then((response) =>
+        response.json()
+    ) 
+}
+
+export async function getPhotographerPage() {
+
+    return await fetch('../assets/data/photographers.json').then((response) =>
+        response.json()
+    ) 
 }
 
 export async function displayData(photographers) {
@@ -42,6 +51,30 @@ export async function init() {
         // Récupère les datas des photographes
         const { photographers } = await getPhotographers()
         displayData(photographers)
+}
+
+export async function photographerForm(idForm) {
+    // Récupère les datas des photographes
+    const { media, photographers } = await getPhotographerPage()
+    //const photographer = photographers.find((item)=>item.id === idForm)
+    let p
+    let result = []
+
+    photographers.forEach((photographer) => {
+        if(photographer.id == idForm){
+            
+            p = photographer
+        }
+    })
+
+    media.forEach((m)=>{
+        if(m.photographerId == idForm)
+        {   
+            result.push(m)
+        }
+    })
+
+    photographerPageTemplate(p,result)
 }
     
     

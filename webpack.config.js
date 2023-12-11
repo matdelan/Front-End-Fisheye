@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
 module.exports = {
+    mode: 'development',
     entry: {
         index :'./src/index.js',
         photographer :'./src/photographer.js',
@@ -34,7 +35,7 @@ module.exports = {
                     {
                         loader : MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: "../",
+                            publicPath: "../sass/",
                         }, // Extrayez le CSS dans un fichier séparé
                     },
                     'css-loader', // Charge les fichiers CSS dans le JavaScript
