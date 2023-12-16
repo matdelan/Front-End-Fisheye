@@ -141,26 +141,23 @@ form input {
   font-size: 28px;
   margin-top: 5px; }
 
-.title__img {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover; }
-
 .title {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0px;
   place-items: center; }
+  .title__img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover; }
 
 .media {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  margin: 0 100px; }
-  .media__card {
-    width: 350px; }
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 100px;
+  justify-content: space-between; }
   .media__img {
     -o-object-fit: cover;
        object-fit: cover;
@@ -188,5 +185,50 @@ form input {
   font-weight: bold; }
 
 .input__message {
-  height: 200px; }
+  height: 2200px; }
+
+.modal__lightbox {
+  position: fixed;
+  display: flex;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  flex-direction: column;
+  font-size: 4em;
+  color: #901C1C;
+  justify-content: center;
+  aria-label: image closeup view; }
+  .modal__lightbox-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row; }
+  .modal__lightbox-media {
+    width: 80%;
+    height: 1000px;
+    -o-object-fit: cover;
+       object-fit: cover; }
+  .modal__lightbox-close {
+    cursor: pointer;
+    position: absolute;
+    top: 0; }
+  .modal__lightbox-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10%;
+    position: relative;
+    height: 900px;
+    padding-left: 30px; }
+  .modal__lightbox-left {
+    padding-right: 30px;
+    margin-left: auto;
+    cursor: pointer; }
+  .modal__lightbox-right {
+    cursor: pointer; }
+
+.invisible {
+  display: none; }
 

@@ -5,30 +5,35 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>Fisheye - photographe </title>
   </head>
   <body>
     <header>
       <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
-    <main id="main">
+    <main id="main" arial-hidden="false">
       <div class="photograph-header">
         <button class="contact_button" >Contactez-moi</button>
       </div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" arial-hidden="true" role="dialog" aria-describedby="modalContact">
 			<div class="modal">
 				<header>
           <div>
             <h2>Contactez-moi</h2>
-            <h2 class="getName"></h2>
+            <h2 class="jsContent_getName"></h2>
           </div>
           <img src="assets/icons/close.svg" class="button__close" />
         </header>
 				<form>
 					<article>
 						<label for="prenom">Prénom</label>
-						<input id="prenom"/>
+						<input id="first"/>
 					</article>
           <article>
 						<label for="nom">Nom</label>
@@ -40,7 +45,7 @@
 					</article>
           <article>
 						<label for="textarea">Votre message</label>
-						<textarea id="textarea" name="textarea message" rows="15" cols="100"></textarea>
+						<textarea id="comment" name="textarea message" rows="15" cols="80"></textarea>
 					</article>
           <button class="contact_button">Envoyer</button>
 				</form>

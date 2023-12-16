@@ -1,4 +1,4 @@
-import * as mediaClass from '../factory/media'
+import * as factoryMedia from '../factory/media'
 
 
 export function photographerTemplate(data) {
@@ -15,7 +15,7 @@ export function photographerTemplate(data) {
 
         const img = document.createElement( 'img' )
         img.setAttribute("src", picture)
-        img.setAttribute("alt", "Portrait de " + name)
+        img.setAttribute("alt", name)
         
         const h2 = document.createElement( 'h2' )
         h2.textContent = name
@@ -87,7 +87,7 @@ export function photographerPageTemplate(photographer,media) {
 
     
     media.forEach((m)=>{
-        allMedia.push(mediaClass.createMedia(m.title, m.image, m.video, m.likes, m.photographerId))
+        allMedia.push(factoryMedia.createMedia(m.title, m.image, m.video, m.likes, m.photographerId, m.date, m.id))
     })
 
     //Trie
@@ -98,18 +98,23 @@ export function photographerPageTemplate(photographer,media) {
     allMedia.forEach((m)=>{
         sectionMedia.appendChild(m.getCardDOM())
     })
-    
-    document.body.appendChild(sectionMedia)
+    //document.body.appendChild(sectionMedia)
 
+    //Overlay photographer page 
     const overlay = document.createElement( 'overlay' )
-
     overlay.classList.add('photographer__overlay')
     overlay.textContent = photographer.price + "€ / jour"
-    document.body.appendChild(overlay)
 
-    //Add photographer name on form
-    const photographerName = document.querySelector(".getName")
+    const modalContact = document.getElementById('contact_modal')
+    modalContact.insertAdjacentElement("afterend", overlay)
+    modalContact.insertAdjacentElement("afterend", sectionMedia)
+    //document.body.appendChild(overlay)
+
+    //Add photographer name on Contact form
+    const photographerName = document.querySelector(".jsContent_getName")
     photographerName.textContent = photographer.name
+
+    return allMedia
 
 }
 

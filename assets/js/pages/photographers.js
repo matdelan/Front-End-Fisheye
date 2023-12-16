@@ -1,18 +1,19 @@
 import {photographerTemplate,photographerPageTemplate}  from '../templates/photographer'
-//import json from '../../data/photographers.json'
+const johnDoe = {
+    "name": "none",
+    "id": 0,
+    "city": "none",
+    "country": "none",
+    "tagline": "none",
+    "price": 0,
+    "portrait": "none"
+}
 
 export async function getPhotographers() {
     return await fetch('assets/data/photographers.json').then((response) =>
         response.json()
     ) 
 }
-
-/*export async function getPhotographerPage() {
-
-    return await fetch('../assets/data/photographers.json').then((response) =>
-        response.json()
-    ) 
-}*/
 
 export async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
@@ -34,14 +35,13 @@ export async function photographerForm(idForm) {
     // Récupère les datas des photographes
     const { media, photographers } = await getPhotographers()
     //const photographer = photographers.find((item)=>item.id === idForm)
-    let p
+    let p = johnDoe
     let result = []
 
     photographers.forEach((photographer) => {
         if(photographer.id == idForm){
-            
             p = photographer
-        }
+        } 
     })
 
     media.forEach((m)=>{
@@ -51,7 +51,7 @@ export async function photographerForm(idForm) {
         }
     })
 
-    photographerPageTemplate(p,result)
+    return photographerPageTemplate(p,result)
 }
     
     

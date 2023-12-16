@@ -81,25 +81,23 @@ form input
     font-size: 28px
     margin-top: 5px
 
-.title__img
-    height: 200px
-    width: 200px
-    border-radius: 50%
-    object-fit: cover
 .title
     display: grid
     grid-template-columns: 1fr 1fr 1fr
     gap: 0px
     place-items: center
+    &__img
+        height: 200px
+        width: 200px
+        border-radius: 50%
+        object-fit: cover
 
 .media
-    display: grid
-    grid-template-columns: 1fr 1fr 1fr
-    gap: 20px
+    display: flex
+    flex-wrap: wrap
     margin: 0 100px
-    //width: 100%
+    justify-content: space-between
     &__card
-        width: 350px
     &__img
         object-fit: cover
         height: 320px
@@ -126,4 +124,48 @@ form input
     font-weight: bold
 
 .input__message
-    height: 200px
+    height: 2200px
+
+.modal__lightbox
+    position: fixed
+    display: flex
+    top: 0%
+    left: 0%
+    width: 100%
+    height: 100%
+    background-color: white
+    flex-direction: column
+    font-size: 4em
+    color: $color-secondary
+    justify-content: center
+    aria-label: image closeup view
+    &-content
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: row
+    &-media
+        width: 80%
+        height: 1000px
+        object-fit: cover
+    &-close
+        cursor: pointer
+        position: absolute
+        top: 0
+    &-aside
+        display: flex
+        flex-direction: column
+        justify-content: center
+        width: 10% 
+        position: relative
+        height: 900px
+        padding-left: 30px
+    &-left  
+        padding-right: 30px
+        margin-left: auto
+        cursor: pointer
+    &-right
+        cursor: pointer
+
+.invisible
+    display: none    
