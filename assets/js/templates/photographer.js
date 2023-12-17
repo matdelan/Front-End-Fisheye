@@ -5,7 +5,6 @@ export function photographerTemplate(data) {
     //console.log("Template : "+data)
     const { name, portrait, city, country, id , tagline, price } = data
 
-    //const picture = `assets/photographers/${portrait}`;
     const picture = `assets/images/Photographers_ID_Photos/${portrait}`
     
     function getUserCardDOM() {
@@ -45,7 +44,7 @@ export function photographerTemplate(data) {
     return { name, picture, getUserCardDOM }
 }
 
-export function photographerPageTemplate(photographer,media) {
+export function photographerPageTemplate(photographer,listMedia) {
 
     //const { name, portrait, city, country, id , tagline, price } = photographer
 
@@ -53,7 +52,7 @@ export function photographerPageTemplate(photographer,media) {
     
     const section = document.createElement( 'section' )
     section.setAttribute('id', photographer.id);
-
+    section.classList.add('title__section')
 
     const h2 = document.createElement( 'h2' )
     h2.textContent = photographer.name
@@ -77,7 +76,7 @@ export function photographerPageTemplate(photographer,media) {
     
     const img = document.createElement( 'img' )
     img.setAttribute("src", picture)
-    img.setAttribute("alt", "Portrait de " + photographer.name)
+    img.setAttribute("alt", photographer.name)
     img.classList.add('title__img')
 
     pageSection.appendChild(img)
@@ -85,8 +84,7 @@ export function photographerPageTemplate(photographer,media) {
     //Factory Media items 
     const allMedia =[]
 
-    
-    media.forEach((m)=>{
+    listMedia.forEach((m)=>{
         allMedia.push(factoryMedia.createMedia(m.title, m.image, m.video, m.likes, m.photographerId, m.date, m.id))
     })
 
@@ -98,17 +96,15 @@ export function photographerPageTemplate(photographer,media) {
     allMedia.forEach((m)=>{
         sectionMedia.appendChild(m.getCardDOM())
     })
-    //document.body.appendChild(sectionMedia)
 
     //Overlay photographer page 
     const overlay = document.createElement( 'overlay' )
     overlay.classList.add('photographer__overlay')
     overlay.textContent = photographer.price + "€ / jour"
-
-    const modalContact = document.getElementById('contact_modal')
-    modalContact.insertAdjacentElement("afterend", overlay)
-    modalContact.insertAdjacentElement("afterend", sectionMedia)
-    //document.body.appendChild(overlay)
+    
+    const main = document.getElementById('main')
+    main.appendChild(overlay)
+    main.appendChild(sectionMedia)
 
     //Add photographer name on Contact form
     const photographerName = document.querySelector(".jsContent_getName")

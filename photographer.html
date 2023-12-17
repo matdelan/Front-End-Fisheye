@@ -16,38 +16,38 @@
     <header>
       <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
-    <main id="main" arial-hidden="false">
+    <main id="main">
       <div class="photograph-header">
         <button class="contact_button" >Contactez-moi</button>
       </div>
     </main>
-    <div id="contact_modal" arial-hidden="true" role="dialog" aria-describedby="modalContact">
+    <div id="contact_modal" role="dialog" aria-describedby="modalContact" aria-labelledby="contact">
 			<div class="modal">
 				<header>
-          <div>
+          <div id="contact">
             <h2>Contactez-moi</h2>
             <h2 class="jsContent_getName"></h2>
           </div>
-          <img src="assets/icons/close.svg" class="button__close" />
+          <img src="assets/icons/close.svg" class="button__close" aria-label="Close Contact form"/>
         </header>
 				<form>
-					<article>
-						<label for="prenom">Prénom</label>
-						<input id="first"/>
+					<article class="formData" data-error="" data-error-visible="false">
+						<label for="first" id="labelFirst">Prénom</label>
+						<input id="first" aria-labelledby="labelFirst" aria-describedby="First name"/>
 					</article>
-          <article>
-						<label for="nom">Nom</label>
-						<input id="nom"/>
+          <article class="formData" data-error="" data-error-visible="false">
+						<label for="last" id="labelName" >Nom</label>
+						<input id="last" aria-labelledby="labelName" aria-describedby="Last name"/>
 					</article>
-          <article>
-						<label for="email">Email</label>
-						<input id="email" type="email" id="email" name="email"/>
+          <article class="formData" data-error="" data-error-visible="false">
+						<label for="email" id="labelEmail">Email</label>
+						<input id="email" type="email" id="email" name="email" aria-labelledby="labelEmail" aria-describedby="Email"/>
 					</article>
-          <article>
-						<label for="textarea">Votre message</label>
-						<textarea id="comment" name="textarea message" rows="15" cols="80"></textarea>
-					</article>
-          <button class="contact_button">Envoyer</button>
+          <article class="formData" data-error="" data-error-visible="false">
+						<label for="comment" id="labelComment">Votre message</label>
+						<textarea class="modal__contact-comment" id="comment" name="textarea message" rows="7" aria-labelledby="labelComment" aria-describedby="Your message"></textarea>
+					</article >
+          <button class="contact_button" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>

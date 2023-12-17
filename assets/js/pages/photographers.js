@@ -32,9 +32,8 @@ export async function init() {
 }
 
 export async function photographerForm(idForm) {
-    // Récupère les datas des photographes
+    // Get photographer & data
     const { media, photographers } = await getPhotographers()
-    //const photographer = photographers.find((item)=>item.id === idForm)
     let p = johnDoe
     let result = []
 

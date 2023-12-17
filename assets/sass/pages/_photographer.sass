@@ -45,8 +45,17 @@
 .modal header h2 
     font-size: 64px
     font-weight: normal
-    
     margin: 0
+
+.modal__contact-comment
+    width: 100%
+    padding: 15px
+    font-size: 16px
+    line-height: 1.5
+    resize: none
+    box-sizing: border-box
+    word-wrap: break-word
+    border-radius: 5px
 
 form 
     display: flex
@@ -91,6 +100,8 @@ form input
         width: 200px
         border-radius: 50%
         object-fit: cover
+    &__section
+        padding-left: 20px
 
 .media
     display: flex
@@ -98,6 +109,8 @@ form input
     margin: 0 100px
     justify-content: space-between
     &__card
+        cursor: pointer
+        width: 350px
     &__img
         object-fit: cover
         height: 320px
@@ -106,17 +119,32 @@ form input
         display: flex
         align-items: center
         justify-content: space-between
-        &-title
-            font-size: 1.2em
+        padding-bottom: 15px
+        color: $color-secondary
+        &-addLikes
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 25%
+        &-likes
+            padding-right: 15px
+            font-size: 1.5em
             margin: 0
-            color: $color-secondary
+        &-title
+            font-size: 1.5em
+            margin: 0
             font-weight: 100 
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            width: 70%
         &-icon
-            color: $color-secondary
+            font-size: 1.7em
+            
                     
 .photographer__overlay    
     position: fixed
-    top: 96%
+    top: 94%
     right: 50px
     padding: 20px 80px
     background-color: $color-secondary-background
@@ -135,7 +163,6 @@ form input
     height: 100%
     background-color: white
     flex-direction: column
-    font-size: 4em
     color: $color-secondary
     justify-content: center
     aria-label: image closeup view
@@ -144,28 +171,64 @@ form input
         justify-content: center
         align-items: center
         flex-direction: row
+    &-middle
+        width: 70%
+        height: 1000px
+        display: flex
+        flex-direction: column
     &-media
-        width: 80%
         height: 1000px
         object-fit: cover
     &-close
         cursor: pointer
         position: absolute
         top: 0
+        font-size: 1em
     &-aside
         display: flex
         flex-direction: column
         justify-content: center
-        width: 10% 
+        width: 12% 
         position: relative
-        height: 900px
+        height: 1000px
         padding-left: 30px
+        font-size: 4em
     &-left  
         padding-right: 30px
         margin-left: auto
         cursor: pointer
+        font-size: 4em
     &-right
         cursor: pointer
+    &-label
+        margin: 10px 0
+        font-size: 2em
 
 .invisible
     display: none    
+
+.opacity
+    opacity: 0.33
+
+.formData[data-error]::after 
+  content: attr(data-error)
+  font-size: 1em
+  color: white
+  display: block
+  margin-top: 14px
+  margin-bottom: 7px
+  text-align: left
+  line-height: 0.3
+  opacity: 0
+  transition: 0.3s
+
+.formData[data-error-visible="true"]::after 
+  opacity: 1
+
+.formData[data-error-visible="true"] .text-control 
+  border: 2px solid #e54858
+
+input[data-error]::after 
+    content: attr(data-error)
+    font-size: 1em
+    color: red
