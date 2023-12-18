@@ -1,3 +1,6 @@
+#main
+    margin-bottom: 100px
+    
 #contact_modal 
     display: none
 
@@ -18,7 +21,9 @@
     background-color: #901C1C
     border-radius: 5px
     cursor: pointer
-
+    &:hover
+        background-color: $color-secondary-background
+        color: black  
 .modal 
     border-radius: 5px
     background-color: #DB8876
@@ -142,14 +147,22 @@ form input
             font-size: 1.7em
             
                     
-.photographer__overlay    
+.photographer__overlay   
+    display: flex 
     position: fixed
-    top: 94%
+    top: 95%
     right: 50px
-    padding: 20px 80px
+    padding: 15px 50px
     background-color: $color-secondary-background
     boarder-radius: 15%
     font-weight: bold
+    justify-content: center
+    align-items: center
+    font-size: 2em
+    &-icon
+        padding: 0 50px 0 10px
+    &-total
+        margin: 0
 
 .input__message
     height: 2200px
@@ -232,3 +245,4 @@ input[data-error]::after
     content: attr(data-error)
     font-size: 1em
     color: red
+

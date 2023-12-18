@@ -100,7 +100,19 @@ export function photographerPageTemplate(photographer,listMedia) {
     //Overlay photographer page 
     const overlay = document.createElement( 'overlay' )
     overlay.classList.add('photographer__overlay')
-    overlay.textContent = photographer.price + "€ / jour"
+
+    const photographerPrice = document.createElement('p')
+    photographerPrice.textContent = photographer.price + "€ / jour"
+    const totalLikes = document.createElement('p')
+    totalLikes.classList.add("photographer__overlay-total")
+    const icon = document.createElement( 'i' )
+    icon.classList.add('photographer__overlay-icon')
+    icon.classList.add('fa-heart')
+    icon.classList.add('fa-solid')
+
+    overlay.appendChild(totalLikes)
+    overlay.appendChild(icon)
+    overlay.appendChild(photographerPrice)
     
     const main = document.getElementById('main')
     main.appendChild(overlay)

@@ -22,6 +22,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
                     media.setAttribute("src", "../assets/images/" + id + "/" + fileNameVideo)  
                     media.setAttribute("id", idMedia)  
                     media.classList.add("modal__lightbox-mediaVideo")
+                    media.setAttribute("controls","controls")
                 } else {
                     media = document.createElement( 'img' )
                     media.setAttribute("src", "../assets/images/" + id + "/" + fileNameImage)
@@ -62,6 +63,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         //Element DOM picture or movie
         const media = getMedia(0)
         media.classList.add('media__img')
+        media.setAttribute('aria-label',name + ', closeup view')
         
         article.appendChild(media)
         const div = document.createElement( 'div' )
@@ -74,11 +76,13 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         const likes = document.createElement('p')
         likes.textContent = like
         likes.classList.add("media__content-likes")
+        likes.setAttribute('use', 'false')
         
         const icon = document.createElement( 'i' )
         icon.classList.add('media__content-icon')
         icon.classList.add('fa-heart')
         icon.classList.add('fa-solid')
+        icon.setAttribute('aria-label','likes')
 
         const a = document.createElement( 'a' )
         a.classList.add('media__content-addLikes')
@@ -130,13 +134,14 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         modalForm.textContent= ""
         modalForm.setAttribute("aria-hidden","false")
         modalForm.setAttribute("role","dialog")
-        modalForm.setAttribute("aria-describedby","modalLightbox")
+        modalForm.setAttribute("aria-label","image closeup view")
         document.getElementById('main').setAttribute("aria-hidden","true")
     
         const chevronLeft = document.createElement('i')
         chevronLeft.classList.add("fa-solid")
         chevronLeft.classList.add("fa-chevron-left")
         chevronLeft.classList.add("modal__lightbox-left")
+        chevronLeft.setAttribute("aria-label", "Previous image")
     
         const mediaMiddle = getMedia(1)
         mediaMiddle.classList.add("modal__lightbox-media")
@@ -158,11 +163,13 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         btnClose.classList.add("modal__lightbox-close")
         btnClose.classList.add("fa-solid")
         btnClose.classList.add("fa-xmark")
+        btnClose.setAttribute("aria-label","Close dialog")
     
         const chevronRight = document.createElement('i')
         chevronRight.classList.add("fa-solid")
         chevronRight.classList.add("fa-chevron-right")
         chevronRight.classList.add("modal__lightbox-right")
+        chevronRight.setAttribute("aria-label", "Next image")
     
         const content = document.createElement('div')
         content.classList.add("modal__lightbox-content")

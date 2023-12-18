@@ -14,6 +14,7 @@ const modalContact = document.getElementById('contact_modal')
 const btnContact = document.querySelector(".contact_button")
 const btnCloseModal = document.querySelector(".button__close")
 const main = document.getElementById('main')
+let totalNumberOfLikes =null
 //Modal Contact
 const form = document.querySelector("form")
 const first = document.getElementById('first')
@@ -39,7 +40,7 @@ modalContact.addEventListener("submit", (event) => {
 document.addEventListener("keydown", function(event){
     if(event.key == "Escape"){
         //Find who is open !
-        console.log(modalContact)
+        
         if(modalContact.getAttribute('aria-hidden') === "false"){
             modal.close(modalContact)
         } else {
@@ -47,17 +48,33 @@ document.addEventListener("keydown", function(event){
             modal.close(modalLightbox)
         }
     }
+    if(event.key == "Enter"){
+        event.preventDefault()
+    }
 })
 
+
+
 const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) => {
-    const mediaCard = document.querySelectorAll(".media__card")
+    const mediaImg = document.querySelectorAll(".media__img")
     const title = document.querySelector(".title__primary")
+    const likes = document.querySelectorAll(".media__content-addLikes")
+    refreshLikes()
 
     /* OVERLAY */
-
+    likes.forEach(like=> like.addEventListener("click", function(){
+        //If like a picture doesn't be use = add 1 + referesh()
+        if(!like.getAttribute('use')){
+            
+            like.firstElementChild.textContent = parseInt(like.textContent) + 1 
+            like.setAttribute("use","true")
+            console.log(like.textContent)
+        }
+        refreshLikes()
+    }))
         
     /** LIGHTBOX */
-    mediaCard.forEach((card) => card.addEventListener("click", function(){
+    mediaImg.forEach((card) => card.addEventListener("click", function(){
         let media = allMedia.find(media => media.idMedia == card.id)
         let modalLightbox = document.querySelector(".modal__lightbox")
         idCard = card.id
@@ -67,9 +84,11 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
             modalContact.insertAdjacentElement("afterend", media.createModalLightbox())
             main.setAttribute("aria-hidden","true")
             modalLightbox = document.querySelector(".modal__lightbox")
+            refreshLikes()
         } else {
             media.switchDisplayMedia()
             modal.display(modalLightbox)
+            refreshLikes()
         }
         /* LIGHTBOX EVENTS */
         /* Close modal event*/
@@ -118,7 +137,6 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
         if((index+=1)==allMedia.length)
             index = 0
         allMedia[index].switchDisplayMedia()
-        console.log(index)
     }
     
     function previousCard(){
@@ -126,7 +144,19 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
         if((index-=1) == -1)
             index = allMedia.length-1
         allMedia[index].switchDisplayMedia()
-        console.log(index)
+    }
+
+    function refreshLikes(){
+        let total = 0
+        const overlay = document.querySelector(".photographer__overlay-total")
+
+        likes.forEach(function(like){
+            let value = parseInt(like.textContent,10)
+            if(!isNaN(value))
+                total += value
+        })
+
+        overlay.textContent = total
     }
 })
 
