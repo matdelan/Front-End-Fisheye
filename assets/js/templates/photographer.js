@@ -29,6 +29,7 @@ export function photographerTemplate(data) {
         const p3 = document.createElement( 'p' )
         p3.textContent = price + "€/jour"
         p3.classList.add('color__secondary-empty')
+
         const a = document.createElement( 'a' )
         a.setAttribute("href", "photographer.html?id="+id)
 
@@ -65,6 +66,7 @@ export function photographerPageTemplate(photographer,listMedia) {
     const p2 = document.createElement( 'p' )
     p2.textContent = photographer.tagline
     p2.classList.add('color__secondary-empty')
+    p2.classList.add('title__secondary-content')
 
     section.appendChild(h2)
     section.appendChild(p1)
@@ -89,12 +91,35 @@ export function photographerPageTemplate(photographer,listMedia) {
     })
 
     //Trie
-    
+    const allMediaName = [...allMedia].sort(function(a,b){
+        let name1 = a.name.toUpperCase()
+        let name2 = b.name.toUpperCase()
+        if (name1 < name2){
+            return -1
+        }
+        if (name1 > name2){
+            return 1
+        }
+        else {
+            return 0
+        }
+    })
+    const allMediaDate = [...allMedia].sort(function(a, b) {
+        var dateA = new Date(a.date)
+        var dateB = new Date(b.date)
+        return dateA - dateB
+    })
+    const allMediaPopularity = [...allMedia].sort(function(a, b) {
+        return b.like - a.like
+    })
+
     const sectionMedia = document.createElement( 'section' )
     sectionMedia.classList.add('media')
-    //Affiche
-    allMedia.forEach((m)=>{
+
+    //Display
+    allMediaPopularity.forEach((m)=>{
         sectionMedia.appendChild(m.getCardDOM())
+        m.setRank(i)
     })
 
     //Overlay photographer page 

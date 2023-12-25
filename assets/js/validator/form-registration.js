@@ -3,7 +3,6 @@ import * as modal from '../utility/modal'
 
 /**** TEST ****/
 export function checkEmail(email){
-    //let regex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
     let regex = new RegExp (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     return regex.test(email)
 }
@@ -22,7 +21,6 @@ function manageAlertList(){
 
 //Affiche les messages d'erreus en fonction des champs : input id / booleen champs conforme
 export function manageAlert(element, bool){
-  //Gestion du message d'erreur
   let msg = ""
   switch(element.id){
     case 'last' :
@@ -34,34 +32,26 @@ export function manageAlert(element, bool){
       msg="Veuillez entrer un mail valide."
       break
     }
-
     let target = element.parentElement
-
-    //Gestion d'affichage des messages d'erreurs
     if (bool){
-      //si l'alerte est est visible
       if (target.getAttribute("data-error-visible")){
-        //on l'enlève
         target.setAttribute("data-error", "")
         target.setAttribute("data-error-visible", "false")
         element.setAttribute('aria-invalid','false')
       }
     }
     else{
-      //On cache l'alerte si ce n'est pas deja fait
       if(target.getAttribute("data-error-visible")){
         target.setAttribute("data-error", msg)
         target.setAttribute("data-error-visible", "true")
         element.setAttribute('aria-invalid','true')
       }
     }
-  //a condition que l'attibut data-error soit en deuxième position au niveau des classes
 }
 function dataLog(bool)
 {
   this.bool = bool
 }
-
 
 export function validateForm(form){
   let table = {}    
@@ -86,12 +76,5 @@ export function validateForm(form){
     {
       //On affiche les erreurs    
       manageAlertList()
-      
-      table.first = new dataLog(checkTextField(first.value))
-      table.last = new dataLog(checkTextField(last.value))
-      table.comment = new dataLog(checkTextField(comment.value))
-      table.email = new dataLog(checkEmail(email.value))
-
-      console.table(table)
     }
 }

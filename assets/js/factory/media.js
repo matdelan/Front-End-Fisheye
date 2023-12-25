@@ -1,6 +1,7 @@
 
 export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedia)
 {
+    let rank = 0
     // 0 - for mini card // 1 - lightbox // 2 - Media Off
     function getMedia(i){
         let media = null
@@ -36,6 +37,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
                     media.setAttribute("src", "../assets/images/82/Art_Wooden_Horse_Sculpture.mp4")  
                     media.setAttribute("id", idMedia) 
                     media.classList.add("modal__lightbox-mediaVideo")
+                    media.setAttribute("controls","controls")
                 } else {
                     media = document.createElement( 'img' )
                     media.setAttribute("src", "../assets/images/82/Art_Purple_light.jpg")
@@ -45,9 +47,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
                 media.classList.add("modal__lightbox-media")
                 media.classList.add('invisible')
                 break
-
         }
-        
         
         media.setAttribute("alt", name)
         
@@ -59,6 +59,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         const article = document.createElement( 'article' )
         article.classList.add('media__card')
         article.setAttribute('id', idMedia)
+        article.setAttribute('tabindex', idMedia)
 
         //Element DOM picture or movie
         const media = getMedia(0)
@@ -91,7 +92,6 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
 
         div.appendChild(h3)
         div.appendChild(a)
-        
 
         article.appendChild(div)
 
@@ -118,10 +118,17 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
                 mediaImg.setAttribute('id',idMedia)
             }
         } else {
-            mediaVideo.setAttribute('src',"../assets/images/" + id + "/" + fileNameVideo)
-            mediaVideo.setAttribute('id',idMedia)
-            mediaImg.classList.toggle('invisible')
-            mediaVideo.classList.toggle('invisible')
+            //Base video est affiché - swap 
+            if(mediaImg.classList.contains('invisible'))
+            {
+                mediaVideo.setAttribute('src',"../assets/images/" + id + "/" + fileNameVideo)
+                mediaVideo.setAttribute('id',idMedia)
+            } else {
+                mediaVideo.setAttribute('src',"../assets/images/" + id + "/" + fileNameVideo)
+                mediaVideo.setAttribute('id',idMedia)
+                mediaImg.classList.toggle('invisible')
+                mediaVideo.classList.toggle('invisible')
+            }
         }
 
         /* For Text*/
@@ -183,9 +190,11 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         aside.appendChild(chevronRight)
         content.appendChild(aside)
         modalForm.appendChild(content)
-        
     
         return modalForm
+    }
+    function setRank(i){
+        rank = i
     }
 
     return {
@@ -196,8 +205,10 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         id,
         date,
         idMedia,
+        rank,
         getCardDOM,
         createModalLightbox,
-        switchDisplayMedia
+        switchDisplayMedia,
+        setRank
     }
 }

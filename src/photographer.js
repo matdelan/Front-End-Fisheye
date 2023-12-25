@@ -118,15 +118,17 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
                 }
             }
             if(event.key === ' ' || event.key === 'Spacebar'){
-                event.preventDefault()
-                const video = document.querySelector(".modal__lightbox-mediaVideo")
-                if(modalLightbox.getAttribute('aria-hidden') == "false"){
-                    if(modalLightbox.getAttribute("scr") !== "undefined"){
-                        if (video.paused) {
-                            video.play();
-                          } else {
-                            video.pause();
-                          }
+                if(modalLightbox.getAttribute(modal.display == "flex")){
+                    event.preventDefault()
+                    const video = document.querySelector(".modal__lightbox-mediaVideo")
+                    if(modalLightbox.getAttribute('aria-hidden') == "false"){
+                        if(modalLightbox.getAttribute("scr") !== "undefined"){
+                            if (video.paused) {
+                                video.play();
+                            } else {
+                                video.pause();
+                            }
+                        }
                     }
                 }
             }
