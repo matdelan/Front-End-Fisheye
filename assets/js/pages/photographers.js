@@ -22,13 +22,25 @@ export async function displayData(photographers) {
             const photographerModel = photographerTemplate(photographer)
             const userCardDOM = photographerModel.getUserCardDOM()
             photographersSection.appendChild(userCardDOM)
+        })  
+}
+
+async function addLinkPhotographerPage(){
+    /*Link for photographer pages */
+    const cards = document.querySelectorAll("article")
+    console.log(cards)
+    cards.forEach(card => { 
+        card.addEventListener("click", function(){
+        window.location.href = "photographer.html?id=" + card.getAttribute("id")
         })
+    })
 }
 
 export async function init() {
         // Récupère les datas des photographes
         const { photographers } = await getPhotographers()
         displayData(photographers)
+        addLinkPhotographerPage()
 }
 
 export async function photographerForm(idForm) {

@@ -30,30 +30,30 @@
     <div id="contact_modal" role="dialog" aria-describedby="modalContact" aria-labelledby="contact">
 			<div class="modal">
 				<header>
-          <div id="contact">
+          <div id="contact" aria-label="formulaire de contact" tabindex="1">
             <h2>Contactez-moi</h2>
             <h2 class="jsContent_getName"></h2>
           </div>
-          <img src="assets/icons/close.svg" class="button__close" aria-label="Close Contact form"/>
+          <img src="assets/icons/close.svg" class="button__close" aria-label="Close Contact form" tabindex="2"/>
         </header>
 				<form>
 					<article class="formData" data-error="" data-error-visible="false">
 						<label for="first" id="labelFirst">Prénom</label>
-						<input id="first" aria-labelledby="labelFirst" aria-describedby="First name"/>
+						<input id="first" aria-labelledby="labelFirst" aria-describedby="First name" tabindex="3"/>
 					</article>
           <article class="formData" data-error="" data-error-visible="false">
 						<label for="last" id="labelName" >Nom</label>
-						<input id="last" aria-labelledby="labelName" aria-describedby="Last name"/>
+						<input id="last" aria-labelledby="labelName" aria-describedby="Last name" tabindex="4"/>
 					</article>
           <article class="formData" data-error="" data-error-visible="false">
 						<label for="email" id="labelEmail">Email</label>
-						<input id="email" type="email" id="email" name="email" aria-labelledby="labelEmail" aria-describedby="Email"/>
+						<input id="email" type="email" id="email" name="email" aria-labelledby="labelEmail" aria-describedby="Email" tabindex="5"/>
 					</article>
           <article class="formData" data-error="" data-error-visible="false">
 						<label for="comment" id="labelComment">Votre message</label>
-						<textarea class="modal__contact-comment" id="comment" name="textarea message" rows="7" aria-labelledby="labelComment" aria-describedby="Your message"></textarea>
+						<textarea class="modal__contact-comment" id="comment" name="textarea message" rows="7" aria-labelledby="labelComment" aria-describedby="Your message" tabindex="6"></textarea>
 					</article >
-          <button class="contact_button" aria-label="Send">Envoyer</button>
+          <button class="contact_button" aria-label="Send" tabindex="7">Envoyer</button>
 				</form>
 			</div>
 		</div>

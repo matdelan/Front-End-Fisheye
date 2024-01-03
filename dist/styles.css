@@ -18,7 +18,8 @@ p {
   margin: 0; }
 
 *:focus {
-  opacity: 0.92; }
+  opacity: 0.92;
+  border: #901C1C; }
 
 body {
   font-family: "DM Sans", sans-serif;
@@ -307,26 +308,42 @@ form input {
   position: absolute;
   z-index: 500;
   top: top100px;
-  left: left100px; }
+  left: left100px;
+  padding: 0;
+  border: none;
+  background-color: #901C1C;
+  border-radius: 5px; }
   .select__label {
-    font-weight: bold; }
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0 30px 0 100px; }
   .select__item {
     justify-content: space-between;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 1.2em;
     color: white;
     padding: 11px;
-    width: 150px;
-    height: 30px;
-    border: none;
-    background-color: #901C1C;
-    border-radius: 5px;
-    display: flex; }
+    width: 165px;
+    height: 35px;
+    font-weight: 300;
+    display: flex;
+    cursor: pointer;
+    align-items: center; }
+    .select__item p {
+      padding-left: 20px; }
+    .select__item i {
+      margin-right: 12px; }
     .select__item-list {
       display: none;
-      border-top: 1px solid white; }
+      position: relative; }
+      .select__item-list::before {
+        content: "";
+        position: absolute;
+        right: 10%;
+        left: 10%;
+        top: 0;
+        border-top: 1px solid white; }
   .select__section {
-    margin: 30px 0 30px 100px;
+    margin: 30px 0 30px 0px;
     display: flex;
     align-items: center; }
     .select__section-absolute {

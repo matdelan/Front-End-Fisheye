@@ -52,11 +52,15 @@ document.addEventListener("keydown", function(event){
     if(event.key == "Enter"){
         event.preventDefault()
     }
+    if(event.key === ' ' || event.key === 'Spacebar'){
+        //event.preventDefault()
+    }
 })
 
 /* Build select : one entry give choose to select in the list and become the new entry*/
 const listSelect = ["Titre", "Date", "Popularité"]
 let select = new utilitySelect.select(".select", listSelect)
+const domSelect = document.querySelector(".select")
 
 /* EVENT -> On click open list */
 //Parcourir la list est chercher l'order 1
@@ -67,9 +71,18 @@ select.domItemList.forEach(domItem => domItem.addEventListener("click", function
         select.closeListItem()
     }
 }))
+/* Click event document */
+document.addEventListener("click", function(event){
+    if(!domSelect.contains(event.target)){
+        if(select.deploy){
+            select.closeListItem()
+        }
+    }
+})
+
 
 /* Build media miniature */
-let allMedias = photographers.photographerForm(idPhotographer).then( allMedia => {
+photographers.photographerForm(idPhotographer).then( allMedia => {
     const mediaImg = document.querySelectorAll(".media__img")
     const likes = document.querySelectorAll(".media__content-addLikes")
     const cards = document.querySelectorAll(".media__card")
@@ -80,10 +93,10 @@ let allMedias = photographers.photographerForm(idPhotographer).then( allMedia =>
     /* OVERLAY */
     likes.forEach(like=> like.addEventListener("click", function(){
         //If like a picture doesn't be use = add 1 + referesh()
-        if(!like.getAttribute('use')){
+        if(!like.getAttribute('data-use')){
             
             like.firstElementChild.textContent = parseInt(like.textContent) + 1 
-            like.setAttribute("use","true")
+            like.setAttribute("data-use","true")
             console.log(like.textContent)
         }
         refreshLikes()
@@ -100,10 +113,40 @@ let allMedias = photographers.photographerForm(idPhotographer).then( allMedia =>
         }
         
     }))
+    /* ACCES KEYBOARD TOUCH */
+    document.addEventListener("keydown", function(event){
+        /*if(event.key == "Escape"){
+            //Find who is open !
+            
+            if(modalContact.getAttribute('aria-hidden') === "false"){
+                utilityModal.close(modalContact)
+            } else {
+                const modalLightbox = document.querySelector(".modal__lightbox")
+                utilityModal.close(modalLightbox)
+            }
+        }
+        if(event.key == "Enter"){
+            event.preventDefault()  
+        }*/
+        if(event.key === ' ' || event.key === 'Spacebar'){
+            /* si focus liste */
+            let activeItem = document.activeElement
+            console.log(activeItem)
+            if(activeItem.classList.contains("media__card"))
+            {
+                buildLightbox(activeItem.firstElementChild)   
+            }
+        }
+    })
     
         
     /** LIGHTBOX */
     mediaImg.forEach((card) => card.addEventListener("click", function(){
+        buildLightbox(card)
+    }))
+
+    function buildLightbox(card){
+
         let media = allMedia.find(media => media.idMedia == card.id)
         let modalLightbox = document.querySelector(".modal__lightbox")
         idCard = card.id
@@ -145,7 +188,7 @@ let allMedias = photographers.photographerForm(idPhotographer).then( allMedia =>
             if(event.key == "ArrowLeft"){
                 if(modalLightbox.getAttribute('aria-hidden') === "false"){
                     previousCard()
-                }
+                }   
             }
             if(event.key === ' ' || event.key === 'Spacebar'){
                 if(modalLightbox.getAttribute(utilityModal.display == "flex")){
@@ -160,10 +203,12 @@ let allMedias = photographers.photographerForm(idPhotographer).then( allMedia =>
                             }
                         }
                     }
-                }   
+                }
+
             }
         })
-    }))
+
+    }
     function nextCard(){
         let index = allMedia.findIndex(m => m.idMedia == getIndex())
         if((index+=1)==allMedia.length)

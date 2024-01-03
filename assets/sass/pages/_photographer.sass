@@ -239,34 +239,47 @@ form input
     flex-direction: column
     position: absolute
     z-index: 500
-    //max-height: 200px
     top: top + 100px
     left: left + 100px
+    padding: 0
+    border: none
+    background-color: #901C1C
+    border-radius: 5px
     &__label
         font-weight: bold
+        font-size: 1.2em
+        margin: 0 30px 0 100px
     &__item
         justify-content: space-between
-        font-size: 20px
-        font-weight: bold
+        font-size: 1.2em
         color: white
         padding: 11px
-        width: 150px
-        height: 30px
-        border: none
-        background-color: #901C1C
-        border-radius: 5px
+        width: 165px
+        height: 35px
+        font-weight: 300
         display: flex
+        cursor: pointer
+        align-items: center
+        & p 
+            padding-left: 20px
+        & i
+            margin-right: 12px
         &-list
             display: none
-            border-top: 1px solid white
-            
+            position: relative
+            &::before
+                content: ""
+                position: absolute
+                right: 10%
+                left: 10%
+                top: 0
+                border-top: 1px solid white
     &__section
-        margin: 30px 0 30px 100px
+        margin: 30px 0 30px 0px
         display: flex
         align-items: center
         &-absolute
-            margin-top: -80px
-
+            margin-top: -80px           
 
 .formData[data-error]::after 
   content: attr(data-error)

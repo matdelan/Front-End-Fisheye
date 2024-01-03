@@ -2,20 +2,20 @@ import * as factoryMedia from '../factory/media'
 
 
 export function photographerTemplate(data) {
-    //console.log("Template : "+data)
     const { name, portrait, city, country, id , tagline, price } = data
 
     const picture = `assets/images/Photographers_ID_Photos/${portrait}`
-    
+    let i = 1
     const logo = document.querySelector(".logo")
-    logo.setAttribute("tabindex","1")
-    logo.nextElementSibling.setAttribute("tabindex","2")
+    logo.setAttribute("tabindex",i++)
+    logo.nextElementSibling.setAttribute("tabindex",i++)
 
 
     function getUserCardDOM() {
         const article = document.createElement( 'article' )
-        article.setAttribute('id', id)
-        article.setAttribute('arial-label', "User Card")
+        article.setAttribute("id", id)
+        article.setAttribute("aria-label", "User Card")
+        article.setAttribute("tabindex", i++)
 
         const img = document.createElement( 'img' )
         img.setAttribute("src", picture)
@@ -35,17 +35,13 @@ export function photographerTemplate(data) {
         p3.textContent = price + "€/jour"
         p3.classList.add('color__secondary-empty')
 
-        const a = document.createElement( 'a' )
-        a.setAttribute("href", "photographer.html?id="+id)
-
         article.appendChild(img)
         article.appendChild(h2)
         article.appendChild(p1)
         article.appendChild(p2)
         article.appendChild(p3)
-        a.appendChild(article)
          
-        return (a)
+        return (article)
     }
     return { name, picture, getUserCardDOM }
 }
