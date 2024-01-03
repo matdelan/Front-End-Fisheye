@@ -125,6 +125,7 @@ form input
         height: 320px
         width: 350px
         border-radius: 5px
+        cursor: pointer
     &__content
         display: flex
         align-items: center
@@ -186,6 +187,7 @@ form input
     color: $color-secondary
     justify-content: center
     aria-label: image closeup view
+    z-index: 600
     &-content
         display: flex
         justify-content: center
@@ -230,6 +232,42 @@ form input
 .opacity
     opacity: 0.33
 
+
+.select
+    display: flex
+    align-items: center
+    flex-direction: column
+    position: absolute
+    z-index: 500
+    //max-height: 200px
+    top: top + 100px
+    left: left + 100px
+    &__label
+        font-weight: bold
+    &__item
+        justify-content: space-between
+        font-size: 20px
+        font-weight: bold
+        color: white
+        padding: 11px
+        width: 150px
+        height: 30px
+        border: none
+        background-color: #901C1C
+        border-radius: 5px
+        display: flex
+        &-list
+            display: none
+            border-top: 1px solid white
+            
+    &__section
+        margin: 30px 0 30px 100px
+        display: flex
+        align-items: center
+        &-absolute
+            margin-top: -80px
+
+
 .formData[data-error]::after 
   content: attr(data-error)
   font-size: 1em
@@ -252,4 +290,5 @@ input[data-error]::after
     content: attr(data-error)
     font-size: 1em
     color: red
+
 

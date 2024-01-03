@@ -1,4 +1,3 @@
-
 export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedia)
 {
     let rank = 0
@@ -9,24 +8,24 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
             case 0:
                 if (!fileNameImage){
                     media = document.createElement( 'video' )
-                    media.setAttribute("src", "../assets/images/" + id + "/" + fileNameVideo)  
+                    media.setAttribute("src", "assets/images/" + id + "/" + fileNameVideo)  
                     media.setAttribute("id", idMedia)  
                 } else {
                     media = document.createElement( 'img' )
-                    media.setAttribute("src", "../assets/images/" + id + "/" + fileNameImage)
+                    media.setAttribute("src", "assets/images/" + id + "/" + fileNameImage)
                     media.setAttribute("id", idMedia)
                 }
                 break
             case 1:
                 if (!fileNameImage){
                     media = document.createElement( 'video' )
-                    media.setAttribute("src", "../assets/images/" + id + "/" + fileNameVideo)  
+                    media.setAttribute("src", "assets/images/" + id + "/" + fileNameVideo)  
                     media.setAttribute("id", idMedia)  
                     media.classList.add("modal__lightbox-mediaVideo")
                     media.setAttribute("controls","controls")
                 } else {
                     media = document.createElement( 'img' )
-                    media.setAttribute("src", "../assets/images/" + id + "/" + fileNameImage)
+                    media.setAttribute("src", "assets/images/" + id + "/" + fileNameImage)
                     media.setAttribute("id", idMedia)
                     media.classList.add("modal__lightbox-mediaImg")
                 }
@@ -34,13 +33,13 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
             case 2:
                 if (fileNameImage){
                     media = document.createElement( 'video' )
-                    media.setAttribute("src", "../assets/images/82/Art_Wooden_Horse_Sculpture.mp4")  
+                    media.setAttribute("src", "assets/images/82/Art_Wooden_Horse_Sculpture.mp4")  
                     media.setAttribute("id", idMedia) 
                     media.classList.add("modal__lightbox-mediaVideo")
                     media.setAttribute("controls","controls")
                 } else {
                     media = document.createElement( 'img' )
-                    media.setAttribute("src", "../assets/images/82/Art_Purple_light.jpg")
+                    media.setAttribute("src", "assets/images/82/Art_Purple_light.jpg")
                     media.setAttribute("id", idMedia)
                     media.classList.add("modal__lightbox-mediaImg")
                 }
@@ -59,7 +58,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         const article = document.createElement( 'article' )
         article.classList.add('media__card')
         article.setAttribute('id', idMedia)
-        article.setAttribute('tabindex', idMedia)
+        article.setAttribute('tabindex', rank)
 
         //Element DOM picture or movie
         const media = getMedia(0)
@@ -98,6 +97,10 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         return article
     }
 
+    function changeCardDom(){
+        
+    }
+
     function switchDisplayMedia(){
         //Create two balise img et video and swap if need to display one or another
         const mediaImg = document.querySelector(".modal__lightbox-mediaImg")
@@ -109,22 +112,22 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
             //Base video est affiché - swap 
             if(mediaImg.classList.contains('invisible'))
             {
-                mediaImg.setAttribute('src',"../assets/images/" + id + "/" + fileNameImage)
+                mediaImg.setAttribute('src',"assets/images/" + id + "/" + fileNameImage)
                 mediaImg.setAttribute('id',idMedia)
                 mediaImg.classList.toggle('invisible')
                 mediaVideo.classList.toggle('invisible')
             } else {//base image
-                mediaImg.setAttribute('src',"../assets/images/" + id + "/" + fileNameImage)
+                mediaImg.setAttribute('src',"assets/images/" + id + "/" + fileNameImage)
                 mediaImg.setAttribute('id',idMedia)
             }
         } else {
             //Base video est affiché - swap 
             if(mediaImg.classList.contains('invisible'))
             {
-                mediaVideo.setAttribute('src',"../assets/images/" + id + "/" + fileNameVideo)
+                mediaVideo.setAttribute('src',"assets/images/" + id + "/" + fileNameVideo)
                 mediaVideo.setAttribute('id',idMedia)
             } else {
-                mediaVideo.setAttribute('src',"../assets/images/" + id + "/" + fileNameVideo)
+                mediaVideo.setAttribute('src',"assets/images/" + id + "/" + fileNameVideo)
                 mediaVideo.setAttribute('id',idMedia)
                 mediaImg.classList.toggle('invisible')
                 mediaVideo.classList.toggle('invisible')
@@ -209,6 +212,7 @@ export function createMedia(name,fileNameImage,fileNameVideo,like,id,date,idMedi
         getCardDOM,
         createModalLightbox,
         switchDisplayMedia,
+        changeCardDom,
         setRank
     }
 }

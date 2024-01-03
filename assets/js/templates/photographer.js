@@ -7,10 +7,15 @@ export function photographerTemplate(data) {
 
     const picture = `assets/images/Photographers_ID_Photos/${portrait}`
     
+    const logo = document.querySelector(".logo")
+    logo.setAttribute("tabindex","1")
+    logo.nextElementSibling.setAttribute("tabindex","2")
+
+
     function getUserCardDOM() {
         const article = document.createElement( 'article' )
-        article.setAttribute('id', id);
-        article.setAttribute('arial-label', "User Card");
+        article.setAttribute('id', id)
+        article.setAttribute('arial-label', "User Card")
 
         const img = document.createElement( 'img' )
         img.setAttribute("src", picture)
@@ -47,13 +52,17 @@ export function photographerTemplate(data) {
 
 export function photographerPageTemplate(photographer,listMedia) {
 
-    //const { name, portrait, city, country, id , tagline, price } = photographer
+    let accessibilityIndex = 1  
+    const picture = `assets/images/Photographers_ID_Photos/${photographer.portrait}`
 
-    const picture = `../assets/images/Photographers_ID_Photos/${photographer.portrait}`
-    
+    const logo = document.querySelector(".logo")
+    logo.setAttribute("tabindex",accessibilityIndex++)
+
     const section = document.createElement( 'section' )
-    section.setAttribute('id', photographer.id);
+    section.setAttribute('id', photographer.id)
     section.classList.add('title__section')
+    section.setAttribute("tabindex", accessibilityIndex++)
+    section.setAttribute("aria-label","Photographer describe")
 
     const h2 = document.createElement( 'h2' )
     h2.textContent = photographer.name
@@ -72,6 +81,9 @@ export function photographerPageTemplate(photographer,listMedia) {
     section.appendChild(p1)
     section.appendChild(p2)
 
+    const contactButton = document.querySelector(".contact_button")
+    contactButton.setAttribute("tabindex", accessibilityIndex++)
+
     const pageSection = document.querySelector(".photograph-header")
     pageSection.classList.add('title')
     pageSection.insertBefore(section,pageSection.firstChild)
@@ -80,8 +92,12 @@ export function photographerPageTemplate(photographer,listMedia) {
     img.setAttribute("src", picture)
     img.setAttribute("alt", photographer.name)
     img.classList.add('title__img')
+    img.setAttribute("tabindex", accessibilityIndex++)
 
     pageSection.appendChild(img)
+
+    const select = document.querySelector(".select")
+    select.setAttribute("tabindex",accessibilityIndex++)
 
     //Factory Media items 
     const allMedia =[]
@@ -90,36 +106,15 @@ export function photographerPageTemplate(photographer,listMedia) {
         allMedia.push(factoryMedia.createMedia(m.title, m.image, m.video, m.likes, m.photographerId, m.date, m.id))
     })
 
-    //Trie
-    const allMediaName = [...allMedia].sort(function(a,b){
-        let name1 = a.name.toUpperCase()
-        let name2 = b.name.toUpperCase()
-        if (name1 < name2){
-            return -1
-        }
-        if (name1 > name2){
-            return 1
-        }
-        else {
-            return 0
-        }
-    })
-    const allMediaDate = [...allMedia].sort(function(a, b) {
-        var dateA = new Date(a.date)
-        var dateB = new Date(b.date)
-        return dateA - dateB
-    })
-    const allMediaPopularity = [...allMedia].sort(function(a, b) {
-        return b.like - a.like
-    })
-
     const sectionMedia = document.createElement( 'section' )
     sectionMedia.classList.add('media')
 
+    const accessibilityIndexStart = accessibilityIndex
+
     //Display
-    allMediaPopularity.forEach((m)=>{
-        sectionMedia.appendChild(m.getCardDOM())
-        m.setRank(i)
+    allMedia.forEach((m)=>{
+        m.setRank(accessibilityIndex++)
+        sectionMedia.appendChild(m.getCardDOM())  
     })
 
     //Overlay photographer page 

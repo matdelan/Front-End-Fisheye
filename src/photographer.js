@@ -1,7 +1,8 @@
 /**IMPORT */
-import * as modal from '../assets/js/utility/modal'
+import * as utilityModal from '../assets/js/utility/modal'
 import * as validatorFormregistration from '../assets/js/validator/form-registration'
 import * as photographers from '../assets/js/pages/photographers'
+import * as utilitySelect from '../assets/js/utility/select'
 import {sass} from '../assets/sass/style.sass'
 
 /**Get URL paramemters */
@@ -24,10 +25,10 @@ const comment = document.getElementById('comment')
 
 /** EVENTS */
 btnContact.addEventListener("click", function(){
-    modal.display(modalContact)
+    utilityModal.display(modalContact)
 })
 btnCloseModal.addEventListener("click", function(){
-    modal.close(modalContact)
+    utilityModal.close(modalContact)
 })
 
 /**MODAL CONTACT VALIDATION */
@@ -42,10 +43,10 @@ document.addEventListener("keydown", function(event){
         //Find who is open !
         
         if(modalContact.getAttribute('aria-hidden') === "false"){
-            modal.close(modalContact)
+            utilityModal.close(modalContact)
         } else {
             const modalLightbox = document.querySelector(".modal__lightbox")
-            modal.close(modalLightbox)
+            utilityModal.close(modalLightbox)
         }
     }
     if(event.key == "Enter"){
@@ -53,12 +54,27 @@ document.addEventListener("keydown", function(event){
     }
 })
 
+/* Build select : one entry give choose to select in the list and become the new entry*/
+const listSelect = ["Titre", "Date", "Popularité"]
+let select = new utilitySelect.select(".select", listSelect)
 
+/* EVENT -> On click open list */
+//Parcourir la list est chercher l'order 1
+select.domItemList.forEach(domItem => domItem.addEventListener("click", function(){
+    if(!select.deploy) {
+        select.showSelectList()
+    } else if(domItem.style.getPropertyValue("order") == "1"){
+        select.closeListItem()
+    }
+}))
 
-const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) => {
+/* Build media miniature */
+let allMedias = photographers.photographerForm(idPhotographer).then( allMedia => {
     const mediaImg = document.querySelectorAll(".media__img")
-    const title = document.querySelector(".title__primary")
     const likes = document.querySelectorAll(".media__content-addLikes")
+    const cards = document.querySelectorAll(".media__card")
+    
+    allMediaSort("0")
     refreshLikes()
 
     /* OVERLAY */
@@ -72,6 +88,19 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
         }
         refreshLikes()
     }))
+    /* SELECT EVENTS */
+    select.domItemList.forEach(domItem => domItem.addEventListener("click", function(){
+        if(domItem.classList.contains("select__item-list"))
+        {
+            let temp = domItem.getAttribute("data-index")
+            if(domItem.style.getPropertyValue("order") !== 1){
+                allMediaSort(domItem.getAttribute("data-index"))
+                select.swapFirstListItem(temp)
+            }
+        }
+        
+    }))
+    
         
     /** LIGHTBOX */
     mediaImg.forEach((card) => card.addEventListener("click", function(){
@@ -87,14 +116,15 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
             refreshLikes()
         } else {
             media.switchDisplayMedia()
-            modal.display(modalLightbox)
+            utilityModal.display(modalLightbox)
             refreshLikes()
         }
+        
         /* LIGHTBOX EVENTS */
         /* Close modal event*/
         const modalClose = document.querySelector(".modal__lightbox-close")
         modalClose.addEventListener("click", function(){
-            modal.close(modalLightbox)
+            utilityModal.close(modalLightbox)
         })
             
         let leftArrow = document.querySelector(".modal__lightbox-left")
@@ -118,7 +148,7 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
                 }
             }
             if(event.key === ' ' || event.key === 'Spacebar'){
-                if(modalLightbox.getAttribute(modal.display == "flex")){
+                if(modalLightbox.getAttribute(utilityModal.display == "flex")){
                     event.preventDefault()
                     const video = document.querySelector(".modal__lightbox-mediaVideo")
                     if(modalLightbox.getAttribute('aria-hidden') == "false"){
@@ -130,7 +160,7 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
                             }
                         }
                     }
-                }
+                }   
             }
         })
     }))
@@ -160,6 +190,51 @@ const allMedia = photographers.photographerForm(idPhotographer).then((allMedia) 
 
         overlay.textContent = total
     }
+    function allMediaSort(id){
+        switch (id) {
+            case "0":
+                allMedia.sort(function(a,b){
+                    let name1 = a.name.toUpperCase()
+                    let name2 = b.name.toUpperCase()
+                    if (name1 < name2){
+                        return -1
+                    }
+                    if (name1 > name2){
+                        return 1
+                    }
+                    else {
+                        return 0
+                    }
+                })
+                break
+            case "1":
+                allMedia.sort(function(a, b) {
+                    var dateA = new Date(a.date)
+                    var dateB = new Date(b.date)
+                    return dateA - dateB
+                })
+                break
+            case "2":
+                allMedia.sort(function(a, b) {
+                    return b.like - a.like
+                })
+                break
+        }
+        allMediaRebuild()
+    }
+    function allMediaRebuild(){
+        let tabindexStart = 6
+        
+        cards.forEach( (card) => {
+            for(let i = 0 ; i < allMedia.length ; i++){
+                if(allMedia[i].idMedia == card.getAttribute("id")){
+                    card.style.setProperty("order",i+1)
+                    card.setAttribute("tabindex", (i+1 + tabindexStart))
+                }
+            }
+        })
+    }
+
 })
 
 
@@ -177,6 +252,7 @@ function getIndex(){
 
     return idCard
 }
+
 
 
 
