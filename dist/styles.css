@@ -18,8 +18,7 @@ p {
   margin: 0; }
 
 *:focus {
-  opacity: 0.92;
-  border: #901C1C; }
+  opacity: 0.92; }
 
 body {
   font-family: "DM Sans", sans-serif;
@@ -67,6 +66,9 @@ h1 {
 
 .photographer_section article p {
   margin: 0; }
+
+.photographer__page {
+  cursor: pointer; }
 
 #main {
   margin-bottom: 100px; }

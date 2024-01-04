@@ -14,8 +14,10 @@ export function photographerTemplate(data) {
     function getUserCardDOM() {
         const article = document.createElement( 'article' )
         article.setAttribute("id", id)
-        article.setAttribute("aria-label", "User Card")
+        article.setAttribute("aria-label", name)
+        article.setAttribute("role", "link")
         article.setAttribute("tabindex", i++)
+        article.classList.add("photographer__page")
 
         const img = document.createElement( 'img' )
         img.setAttribute("src", picture)
@@ -94,7 +96,8 @@ export function photographerPageTemplate(photographer,listMedia) {
 
     const select = document.querySelector(".select")
     select.setAttribute("tabindex",accessibilityIndex++)
-
+    accessibilityIndex += select.childElementCount
+    
     //Factory Media items 
     const allMedia =[]
 
@@ -106,10 +109,11 @@ export function photographerPageTemplate(photographer,listMedia) {
     sectionMedia.classList.add('media')
 
     const accessibilityIndexStart = accessibilityIndex
-
+    console.log(accessibilityIndex)
     //Display
     allMedia.forEach((m)=>{
         m.setRank(accessibilityIndex++)
+        console.log(accessibilityIndex)
         sectionMedia.appendChild(m.getCardDOM())  
     })
 

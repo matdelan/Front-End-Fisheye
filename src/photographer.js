@@ -4,6 +4,7 @@ import * as validatorFormregistration from '../assets/js/validator/form-registra
 import * as photographers from '../assets/js/pages/photographers'
 import * as utilitySelect from '../assets/js/utility/select'
 import {sass} from '../assets/sass/style.sass'
+import * as utilityLightbox from "../assets/js/utility/lightbox"
 
 /**Get URL paramemters */
 let params = new URL(document.location).searchParams
@@ -39,9 +40,7 @@ modalContact.addEventListener("submit", (event) => {
 
 /* ACCES KEYBOARD TOUCH */
 document.addEventListener("keydown", function(event){
-    if(event.key == "Escape"){
-        //Find who is open !
-        
+    if(event.key == "Escape"){      
         if(modalContact.getAttribute('aria-hidden') === "false"){
             utilityModal.close(modalContact)
         } else {
@@ -83,6 +82,7 @@ document.addEventListener("click", function(event){
 
 /* Build media miniature */
 photographers.photographerForm(idPhotographer).then( allMedia => {
+    
     const mediaImg = document.querySelectorAll(".media__img")
     const likes = document.querySelectorAll(".media__content-addLikes")
     const cards = document.querySelectorAll(".media__card")
@@ -103,15 +103,7 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
     }))
     /* SELECT EVENTS */
     select.domItemList.forEach(domItem => domItem.addEventListener("click", function(){
-        if(domItem.classList.contains("select__item-list"))
-        {
-            let temp = domItem.getAttribute("data-index")
-            if(domItem.style.getPropertyValue("order") !== 1){
-                allMediaSort(domItem.getAttribute("data-index"))
-                select.swapFirstListItem(temp)
-            }
-        }
-        
+        selectAction(domItem)
     }))
     /* ACCES KEYBOARD TOUCH */
     document.addEventListener("keydown", function(event){
@@ -130,19 +122,68 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
         }*/
         if(event.key === ' ' || event.key === 'Spacebar'){
             /* si focus liste */
+            
             let activeItem = document.activeElement
-            console.log(activeItem)
-            if(activeItem.classList.contains("media__card"))
-            {
+            
+            
+            if(activeItem.classList.contains("media__card")) {
+                event.preventDefault()
                 buildLightbox(activeItem.firstElementChild)   
+                //utilityLightbox.buildLightbox(activeItem.firstElementChild)
+            }
+            if(activeItem.classList.contains("select") || activeItem.classList.contains("select__item")){
+                event.preventDefault()
+                if(select.deploy){
+                    select.closeListItem()
+                } else {
+                    select.displayListItem()
+                    select.domItemList[select.entryIndex].focus()
+                }
+            }
+            if(activeItem.classList.contains("select__item-list")){
+                event.preventDefault()
+                
+                selectAction(activeItem)
+            }
+            if(activeItem.classList.contains("logo")){
+                event.preventDefault()
+                window.location.href = "index.html"
+            }
+            
+        }
+        if(event.key === "ArrowUp"){
+            event.preventDefault()
+            let activeItem = document.activeElement
+            let i = parseInt(activeItem.style.getPropertyValue("order"))
+            console.log(i)
+            i--
+            if(select.deploy){
+                if(i == 0)
+                    i = select.domItemList.length
+                select.domItemList[i-1].focus()
+            }
+
+        }
+        if(event.key === "ArrowDown"){
+            event.preventDefault()
+            let activeItem = document.activeElement
+            let i = parseInt(activeItem.style.getPropertyValue("order"))
+            console.log(i)
+            i++
+            if(select.deploy){
+                if(i == select.domItemList.length + 1)
+                    i = 1
+                select.domItemList[i-1].focus()
             }
         }
+
     })
     
         
     /** LIGHTBOX */
     mediaImg.forEach((card) => card.addEventListener("click", function(){
         buildLightbox(card)
+        //utilityLightbox.buildLightbox(card)
     }))
 
     function buildLightbox(card){
@@ -156,12 +197,11 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
             modalContact.insertAdjacentElement("afterend", media.createModalLightbox())
             main.setAttribute("aria-hidden","true")
             modalLightbox = document.querySelector(".modal__lightbox")
-            refreshLikes()
-        } else {
-            media.switchDisplayMedia()
-            utilityModal.display(modalLightbox)
-            refreshLikes()
-        }
+        } 
+        media.switchDisplayMedia()
+        utilityModal.display(modalLightbox)
+        refreshLikes()
+    
         
         /* LIGHTBOX EVENTS */
         /* Close modal event*/
@@ -192,7 +232,6 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
             }
             if(event.key === ' ' || event.key === 'Spacebar'){
                 if(modalLightbox.getAttribute(utilityModal.display == "flex")){
-                    event.preventDefault()
                     const video = document.querySelector(".modal__lightbox-mediaVideo")
                     if(modalLightbox.getAttribute('aria-hidden') == "false"){
                         if(modalLightbox.getAttribute("scr") !== "undefined"){
@@ -203,6 +242,10 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
                             }
                         }
                     }
+                }
+                if(modalLightbox.getAttribute('aria-hidden') === "false"){
+                    event.preventDefault()
+
                 }
 
             }
@@ -235,6 +278,7 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
 
         overlay.textContent = total
     }
+
     function allMediaSort(id){
         switch (id) {
             case "0":
@@ -268,7 +312,8 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
         allMediaRebuild()
     }
     function allMediaRebuild(){
-        let tabindexStart = 6
+        //the 6 first index are for the header and finish at the select and add the select lenght
+        let tabindexStart = 8
         
         cards.forEach( (card) => {
             for(let i = 0 ; i < allMedia.length ; i++){
@@ -278,6 +323,17 @@ photographers.photographerForm(idPhotographer).then( allMedia => {
                 }
             }
         })
+    }
+    function selectAction(domItem){
+
+        if(domItem.classList.contains("select__item-list"))
+        {
+            let temp = parseInt(domItem.getAttribute("data-index"))
+
+            allMediaSort(domItem.getAttribute("data-index"))
+            select.swapFirstListItem(temp)
+
+        }
     }
 
 })

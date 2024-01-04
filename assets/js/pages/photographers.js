@@ -28,7 +28,7 @@ export async function displayData(photographers) {
 async function addLinkPhotographerPage(){
     /*Link for photographer pages */
     const cards = document.querySelectorAll("article")
-    console.log(cards)
+
     cards.forEach(card => { 
         card.addEventListener("click", function(){
         window.location.href = "photographer.html?id=" + card.getAttribute("id")
