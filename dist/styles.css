@@ -231,7 +231,7 @@ form input {
   right: 50px;
   padding: 20px 50px 20px 60px;
   background-color: #DB8876;
-  boarder-radius: 15%;
+  border-radius: 15%;
   font-weight: bold;
   justify-content: center;
   align-items: center;
@@ -256,7 +256,6 @@ form input {
   flex-direction: column;
   color: #901C1C;
   justify-content: center;
-  aria-label: image closeup view;
   z-index: 600; }
   .modal__lightbox-content {
     display: flex;
@@ -309,8 +308,6 @@ form input {
   flex-direction: column;
   position: absolute;
   z-index: 500;
-  top: top100px;
-  left: left100px;
   padding: 0;
   border: none;
   background-color: #901C1C;
