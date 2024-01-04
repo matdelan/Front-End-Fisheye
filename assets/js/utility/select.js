@@ -1,4 +1,4 @@
-export class select {
+export class Select {
     constructor(querySelect, list){
         this.list = list
         this.domItem = document.querySelector(querySelect)
