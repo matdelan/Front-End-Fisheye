@@ -20,10 +20,6 @@ const main = document.getElementById("main")
 
 // Modal Contact
 const form = document.querySelector("form")
-const first = document.getElementById("first")
-const last = document.getElementById("last")
-const email = document.getElementById("email")
-const comment = document.getElementById("comment")
 
 /* EVENTS */
 btnContact.addEventListener("click", function() {
@@ -39,27 +35,10 @@ modalContact.addEventListener("submit", (event) => {
     validatorFormregistration.validateForm(form)
 })
 
-/* ACCES KEYBOARD TOUCH */
-document.addEventListener("keydown", function(event) {
-    if (event.key == "Escape") {
-        if (modalContact.getAttribute("aria-hidden") === "false") {
-            utilityModal.close(modalContact)
-        } else {
-            const modalLightbox = document.querySelector(".modal__lightbox")
-            utilityModal.close(modalLightbox)
-        }
-    }
-    if (event.key == "Enter") {
-        event.preventDefault()
-    }
-    if (event.key === " " || event.key === "Spacebar") {
-        // event.preventDefault()
-    }
-})
-
 /* Build select : one entry give choose to select in the list and become the new entry*/
 const listSelect = ["Titre", "Date", "Popularité"]
-const select = new utilitySelect.Select((".select", listSelect))
+
+const select = new utilitySelect.Select(".select", listSelect)
 const domSelect = document.querySelector(".select")
 
 /* EVENT -> On click open list */
@@ -79,12 +58,21 @@ document.addEventListener("click", function(event) {
         }
     }
 })
+
+document.addEventListener("keydown", function(event) {
+    const firstElement1 = document.getElementById("contact")
+    const lastElement1 = document.getElementById("contact__close")
+    if (modalContact.style.display == "flex") {
+        photographers.loopTabindex(event, firstElement1, lastElement1)
+    }
+})
+
 /* Build media miniature */
 photographers.photographerForm(idPhotographer).then( (allMedia) => {
     const mediaImg = document.querySelectorAll(".media__img")
     const likes = document.querySelectorAll(".media__content-addLikes")
     const cards = document.querySelectorAll(".media__card")
-    allMediaSort("0")
+    allMediaSort(0)
     refreshLikes()
 
     /* OVERLAY */
@@ -102,8 +90,7 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
     }))
     /* ACCES KEYBOARD TOUCH */
     document.addEventListener("keydown", function(event) {
-        /* if (event.key == "Escape") {
-            // Find who is open !
+        if (event.key == "Escape") {
             if (modalContact.getAttribute('aria-hidden') === "false"){
                 utilityModal.close(modalContact)
             } else {
@@ -111,25 +98,23 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
                 utilityModal.close(modalLightbox)
             }
         }
-        if (event.key == "Enter") {
-            event.preventDefault()
-        }*/
         if (event.key === " " || event.key === "Spacebar") {
             /* si focus liste */
-            const activeItem = document.activeElement
+            const activeItem = event.target
             if (activeItem.classList.contains("media__card")) {
                 event.preventDefault()
                 buildLightbox(activeItem.firstElementChild)
-                // utilityLightbox.buildLightbox(activeItem.firstElementChild)
             }
-            if (activeItem.classList.contains("select") || activeItem.classList.contains("select__item")) {
+            const boolean1 = activeItem.classList.contains("select")
+            const boolean2 = activeItem.classList.contains("select__item")
+            if (boolean1 || boolean2) {
                 event.preventDefault()
                 if (select.deploy) {
                     select.closeListItem()
                 } else {
                     select.displayListItem()
                     select.domItemList[select.entryIndex].focus()
-                }
+                }       
             }
             if (activeItem.classList.contains("select__item-list")) {
                 event.preventDefault()
@@ -139,42 +124,66 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
                 event.preventDefault()
                 window.location.href = "index.html"
             }
+            if (activeItem.classList.contains("modal__contact-close")) {
+                event.preventDefault()
+                utilityModal.close(modalContact)
+            }
+            
         }
+        /* Loop page */
+        const indexLastElement = 8 + parseInt(allMedia.length)
+        const lastElement = document.querySelector("[tabindex='" + indexLastElement + "']")
+        const firstElement = document.querySelector(".logo")
+        
+        photographers.loopTabindex(event, firstElement, lastElement)
+
+
         if (event.key === "ArrowUp") {
             event.preventDefault()
             const activeItem = document.activeElement
             let i = parseInt(activeItem.style.getPropertyValue("order"))
-            console.log(i)
             i--
             if (select.deploy) {
                 if (i == 0) {
-                    i = select.domItemList.length
+                    select.domItemList.forEach( (domItem) => {
+                        if (parseInt(domItem.style.getPropertyValue("order")) == 3)
+                            domItem.focus()
+                    })
+                } else {
+                    select.domItemList.forEach( (domItem) => {
+                        if (parseInt(domItem.style.getPropertyValue("order")) == i)
+                            domItem.focus()
+                    })
                 }
-                select.domItemList[i-1].focus()
             }
         }
         if (event.key === "ArrowDown") {
             event.preventDefault()
             const activeItem = document.activeElement
             let i = parseInt(activeItem.style.getPropertyValue("order"))
-            console.log(i)
             i++
             if (select.deploy) {
                 if (i == select.domItemList.length + 1) {
-                    i = 1
+                    select.domItemList.forEach( (domItem) => {
+                        if (parseInt(domItem.style.getPropertyValue("order")) == 1)
+                            domItem.focus()
+                    })
+                } else {
+                    select.domItemList.forEach( (domItem) => {
+                        if (parseInt(domItem.style.getPropertyValue("order")) == i)
+                            domItem.focus()
+                    })
                 }
-                select.domItemList[i-1].focus()
             }
         }
+
     })
     /** LIGHTBOX */
     mediaImg.forEach((card) => card.addEventListener("click", function() {
         buildLightbox(card)
-        // utilityLightbox.buildLightbox(card)
     }))
     /**
      * @param {type} card - Dom item class media__card
-     * @returns {type} Description de la valeur de retour.
      */
     function buildLightbox(card) {
         const media = allMedia.find((media) => media.idMedia == card.id)
@@ -214,8 +223,27 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
                     previousCard()
                 }
             }
+            
+            const firstElement = document.querySelector(".modal__lightbox-left")
+            const lastElement = document.querySelector(".modal__lightbox-close")
+
+            photographers.loopTabindex(event, firstElement, lastElement)
+            let activeItem = event.target
             if (event.key === " " || event.key === "Spacebar") {
-                if (modalLightbox.getAttribute(utilityModal.display == "flex")) {
+                if (activeItem.classList.contains("modal__lightbox-left")) {
+                    event.preventDefault()
+                    previousCard()
+                }
+                if (activeItem.classList.contains("modal__lightbox-right")) {
+                    event.preventDefault()
+                    nextCard()
+                }
+                if (activeItem.classList.contains("modal__lightbox-close")) {
+                    event.preventDefault()
+                    utilityModal.close(modalLightbox)
+                }
+                if (activeItem.classList.contains("modal__lightbox-middle")) {
+                    event.preventDefault()
                     const video = document.querySelector(".modal__lightbox-mediaVideo")
                     if (modalLightbox.getAttribute("aria-hidden") == "false") {
                         if (modalLightbox.getAttribute("scr") !== "undefined") {
@@ -227,12 +255,12 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
                         }
                     }
                 }
-                if (modalLightbox.getAttribute("aria-hidden") === "false") {
-                    event.preventDefault()
-                }
             }
         })
     }
+    /**
+     * Display next card
+     */
     function nextCard() {
         let index = allMedia.findIndex((m) => m.idMedia == getIndex())
         if ((index+=1)==allMedia.length) {
@@ -240,6 +268,9 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
         }
         allMedia[index].switchDisplayMedia()
     }
+    /**
+     * Display previous card
+     */
     function previousCard() {
         let index = allMedia.findIndex((m) => m.idMedia == getIndex())
         if ((index-=1) == -1) {
@@ -247,6 +278,9 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
         }
         allMedia[index].switchDisplayMedia()
     }
+    /**
+     * Refresh overlay like
+     */
     function refreshLikes() {
         let total = 0
         const overlay = document.querySelector(".photographer__overlay-total")
@@ -260,9 +294,13 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
 
         overlay.textContent = total
     }
+    /**
+     * Sort table of Media
+     * @param {number} id - id of selected sort
+     */
     function allMediaSort(id) {
         switch (id) {
-            case "0":
+            case 0:
                 allMedia.sort(function(a, b) {
                     const name1 = a.name.toUpperCase()
                     const name2 = b.name.toUpperCase()
@@ -276,14 +314,14 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
                     }
                 })
                 break
-            case "1":
+            case 1:
                 allMedia.sort(function(a, b) {
                     const dateA = new Date(a.date)
                     const dateB = new Date(b.date)
-                    return dateA - dateB
+                    return dateB - dateA
                 })
                 break
-            case "2":
+            case 2:
                 allMedia.sort(function(a, b) {
                     return b.like - a.like
                 })
@@ -291,10 +329,12 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
         }
         allMediaRebuild()
     }
+    /**
+     * Give new order to media
+     */
     function allMediaRebuild() {
         // the 6 first index are for the header and finish at the select and add the select lenght
         const tabindexStart = 8
-
         cards.forEach( (card) => {
             for (let i = 0; i < allMedia.length; i++) {
                 if (allMedia[i].idMedia == card.getAttribute("id")) {
@@ -304,20 +344,26 @@ photographers.photographerForm(idPhotographer).then( (allMedia) => {
             }
         })
     }
+    /**
+    * Select - Action on element
+    * @param {object} domItem - Element li of select
+    */
     function selectAction(domItem) {
         if (domItem.classList.contains("select__item-list")) {
-            const temp = parseInt(domItem.getAttribute("data-index"))
-
-            allMediaSort(domItem.getAttribute("data-index"))
-            select.swapFirstListItem(temp)
+            const sortValue = parseInt(domItem.getAttribute("data-index"))
+            allMediaSort(sortValue)
+            select.swapFirstListItem(sortValue)
         }
     }
 })
+/**
+* Find an index on a media
+* @return {number} idCard - id media
+*/
 function getIndex() {
     // Check if it's an image or a video displayed
     const mediaImg = document.querySelector(".modal__lightbox-mediaImg")
     const mediaVideo = document.querySelector(".modal__lightbox-mediaVideo")
-    // Get id switch media
     if (mediaImg.classList.contains("invisible")) {
         idCard = mediaVideo.getAttribute("id")
     } else {

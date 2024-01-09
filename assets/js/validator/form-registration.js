@@ -73,8 +73,7 @@ export function validateForm(form){
       modal.close(modalContact)
     }
     else
-    {
-      //On affiche les erreurs    
+    {   
       manageAlertList()
     }
 }

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "wp": "webpack --config webpack.config.js --watch",
     "lint": "eslint src/*.js",
+    "lintAll": "eslint assets/js/factory/*.js assets/js/pages/*.js assets/js/templates/*.js assets/js/utility/*.js assets/js/utils/*.js --fix",
     "lintFix": "eslint src/*.js --fix"
   },
   "keywords": [],

@@ -10,7 +10,7 @@
     },
     "rules": {
         "linebreak-style": ["error", "windows"],
-        "semi": ["error", "never"],
+        //"semi": ["error", "never"],
         "quotes": ["error", "double"],
         //"indent": ["warn","tab"],
         "indent": "off",
