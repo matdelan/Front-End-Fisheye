@@ -13,6 +13,11 @@
 export function createMedia(name, fileNameImage, fileNameVideo, like, id, date, idMedia) {
     let rank = 0;
     // 0 - for mini card // 1 - lightbox // 2 - Media Off
+    /**
+     *
+     * @param {number} i - Select the media by i
+     * @return {HTMLElement} - media (tag img or video)
+     */
     function getMedia(i) {
         let media = null;
         switch (i) {
@@ -218,6 +223,10 @@ export function createMedia(name, fileNameImage, fileNameVideo, like, id, date, 
 
         return modalForm;
     }
+    /**
+     * Define rank
+     * @param {number} i - Rank of media
+     */
     function setRank(i) {
         rank = i;
     }

@@ -55,7 +55,7 @@ async function addLinkPhotographerPage() {
     });
 }
 /**
- * Initializes the application by fetching photographer data, displaying it, and adding link functionality.
+ * Initializes the application by fetching photographer data, displaying it, adding link
  *
  * @async
  * @function
@@ -74,7 +74,7 @@ export async function init() {
  * @async
  * @function
  * @param {string} idForm - The ID of the photographer's form.
- * @return {Promise<string>} - A promise that resolves to the HTML representation of the photographer page.
+ * @return {Promise<string>} - Resolves to the HTML representation of the photographer page
  */
 export async function photographerForm(idForm) {
     // Get photographer & data

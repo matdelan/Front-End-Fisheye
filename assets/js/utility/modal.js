@@ -1,3 +1,8 @@
+/**
+ * Displays a modal and handles accessibility adjustments.
+ *
+ * @param {HTMLElement} modal - The modal element to be displayed.
+ */
 export function display(modal) {
     if (modal !== null) {
         const main = document.getElementById("main");
@@ -26,6 +31,11 @@ export function display(modal) {
         }
     }
 }
+/**
+ * Closes a modal and restores the initial state of the page.
+ *
+ * @param {HTMLElement} modal - The modal element to be closed.
+ */
 export function close(modal) {
     if (modal !== null) {
         const main = document.getElementById("main");

@@ -1,6 +1,18 @@
 import * as factoryMedia from "../factory/media";
 
-
+/**
+ * Generates a template for a photographer and provides a method to get the DOM object
+ *
+ * @param {object} data - Photographer data.
+ * @param {string} data.name - The name of the photographer.
+ * @param {string} data.portrait - The filename of the photographer's portrait image.
+ * @param {string} data.city - The city where the photographer is located.
+ * @param {string} data.country - The country where the photographer is located.
+ * @param {string} data.id - The unique identifier of the photographer.
+ * @param {string} data.tagline - The tagline or description of the photographer.
+ * @param {number} data.price - The price per day for the photographer's services.
+ * @return {object} - An object containing the photographer's name, picture, and a method
+ */
 export function photographerTemplate(data) {
     const {name, portrait, city, country, id, tagline, price} = data;
 
@@ -10,7 +22,11 @@ export function photographerTemplate(data) {
     logo.setAttribute("tabindex", i++);
     logo.nextElementSibling.setAttribute("tabindex", i++);
 
-
+    /**
+     * Gets the DOM representation of the photographer.
+     *
+     * @return {HTMLElement} - The DOM element representing the photographer.
+     */
     function getUserCardDOM() {
         const article = document.createElement( "article" );
         article.setAttribute("id", id);
@@ -48,6 +64,20 @@ export function photographerTemplate(data) {
     return {name, picture, getUserCardDOM};
 }
 
+/**
+ * Generates a template for a photographer page and adds it to the DOM.
+ *
+ * @param {object} photographer - Photographer data.
+ * @param {string} photographer.name - The name of the photographer.
+ * @param {string} photographer.portrait - The filename of the photographer's portrait image.
+ * @param {string} photographer.city - The city where the photographer is located.
+ * @param {string} photographer.country - The country where the photographer is located.
+ * @param {string} photographer.id - The unique identifier of the photographer.
+ * @param {string} photographer.tagline - The tagline or description of the photographer.
+ * @param {number} photographer.price - The price per day for the photographer's services.
+ * @param {Array} listMedia - An array of media items associated with the photographer.
+ * @return {Array} - An array containing the media items for the photographer.
+ */
 export function photographerPageTemplate(photographer, listMedia) {
     let accessibilityIndex = 1;
     const picture = `assets/images/Photographers_ID_Photos/${photographer.portrait}`;
@@ -101,7 +131,8 @@ export function photographerPageTemplate(photographer, listMedia) {
     const allMedia =[];
 
     listMedia.forEach((m)=>{
-        allMedia.push(factoryMedia.createMedia(m.title, m.image, m.video, m.likes, m.photographerId, m.date, m.id));
+        allMedia.push(factoryMedia
+            .createMedia(m.title, m.image, m.video, m.likes, m.photographerId, m.date, m.id));
     });
 
     const sectionMedia = document.createElement( "section" );

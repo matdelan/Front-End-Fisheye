@@ -127,7 +127,8 @@ export class Select {
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
             }
             if (parseInt(this.domItemList[i].getAttribute("tabindex")) !== -1) {
-                this.domItemList[i].setAttribute("data-tabindex", this.domItemList[i].getAttribute("tabindex"));
+                const temp = this.domItemList[i].getAttribute("tabindex");
+                this.domItemList[i].setAttribute("data-tabindex", temp);
                 this.domItemList[i].setAttribute("tabindex", "-1");
             }
         }
@@ -148,7 +149,8 @@ export class Select {
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-down");
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
             }
-            this.domItemList[i].setAttribute("tabindex", this.domItemList[i].getAttribute("data-tabindex"));
+            const temp = this.domItemList[i].getAttribute("data-tabindex");
+            this.domItemList[i].setAttribute("tabindex", temp);
         }
         this.domItem.setAttribute("aria-expanded", "true");
     }
@@ -170,8 +172,10 @@ export class Select {
         this.domItemList[newIndex].lastElementChild.classList.toggle("fa-solid");
         this.domItemList[newIndex].lastChild.classList.toggle("fa-chevron-down");
         this.domItemList[newIndex].lastChild.classList.toggle("fa-chevron-up");
-        this.domItemList[newIndex].setAttribute("tabindex", this.domItemList[this.entryIndex].getAttribute("tabindex"));
-        this.domItemList[newIndex].setAttribute("data-tabindex", this.domItemList[this.entryIndex].getAttribute("data-tabindex"));
+        let temp = this.domItemList[this.entryIndex].getAttribute("tabindex");
+        this.domItemList[newIndex].setAttribute("tabindex", temp);
+        temp = this.domItemList[this.entryIndex].getAttribute("data-tabindex");
+        this.domItemList[newIndex].setAttribute("data-tabindex", temp);
 
         this.domItemList[this.entryIndex].style.setProperty("order", lastOrder);
         this.domItemList[this.entryIndex].classList.toggle("select__item-list");
