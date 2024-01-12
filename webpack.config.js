@@ -7,12 +7,10 @@ module.exports = {
     entry: {
         index :'./src/index.js',
         photographer :'./src/photographer.js',
-        //'./src/style.sass'
     },
     output :{
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        //publicPath: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new MiniCssExtractPlugin({

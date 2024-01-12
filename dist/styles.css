@@ -210,7 +210,8 @@ form input {
     left: 45%;
     font-size: 5em;
     color: white;
-    opacity: 0.75; }
+    opacity: 0.75;
+    cursor: pointer; }
   .media__content {
     display: flex;
     align-items: center;

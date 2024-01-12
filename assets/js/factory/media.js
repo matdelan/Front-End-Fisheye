@@ -12,9 +12,8 @@
  */
 export function createMedia(name, fileNameImage, fileNameVideo, like, id, date, idMedia) {
     let rank = 0;
-    // 0 - for mini card // 1 - lightbox // 2 - Media Off
     /**
-     *
+     * 0 - for mini card // 1 - lightbox // 2 - Media Off
      * @param {number} i - Select the media by i
      * @return {HTMLElement} - media (tag img or video)
      */
